@@ -1,5 +1,5 @@
 #include "../../h_files/header.h"
-
+#include <ctype.h>
 
 char *extract_num(char *input) {
     char *buf = malloc(sizeof(char) * strlen(input)+ 1);

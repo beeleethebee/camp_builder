@@ -6,15 +6,19 @@ long get_option(int argc, char *argv[]) {
     long val;
     errno = 0;
     if (argc < 2) {
-        fprintf(stderr, "Usage: %s int, we gonna take 10, by default value.\n", argv[0]);
-        return(10);
+        fprintf(stderr, "Usage: %s int.\n", argv[0]);
+        exit(EXIT_FAILURE);
     }
     str = argv[1];
     val = strtol(str, &endptr, 10);
 
     if (errno != 0 || endptr == str) {
         perror("strtol");
-        return(10);
+        exit(EXIT_FAILURE);
+    }
+    if (val <= 0) {
+        fprintf(stderr, "You can't get a camp with a negative or null size.\n");
+        exit(EXIT_FAILURE);
     }
     return (val);
 }
