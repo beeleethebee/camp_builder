@@ -59,8 +59,9 @@ typedef struct s_action
 
 long get_option(int argc, char *argv[]);
 void delete_spaces(char *to_purge);
-char *extract_num(char *input);
-void format_input( char *input);
+void clear();
+void draw_screen(t_x **my_camp, t_game_info *game_info);
+void init_draw_screen(t_x **my_camp, t_game_info *game_info);
 void tokenize_input(char *input, t_game_info *game_info, t_x **my_camp);
 int detect_building(char *input, t_x **my_camp, t_game_info *game_info);
 
@@ -71,17 +72,14 @@ int arrow_operation(t_params_operator params);
 
 int validator_num(int value, char *input, t_game_info *game_info);
 int validator_extract_num(char *input, t_game_info *game_info);
+char *extract_num(char *input);
+void format_input( char *input);
 
 void init(t_x **tab, int size);
 int push_back(t_x *l, t_building building);
-int pop_back(t_x *l);
-int view(t_x *l);
-int view_list(t_x **l, t_game_info *info);
-int count_items(t_x *l, char *to_search);
-int count_items_list(t_x **l, char *to_search, t_game_info *info);
 int get_max_y(t_x *l);
-int get_max_y_list(t_x **l, t_game_info *info);
 t_building *get_building(t_x *l, int y);
+int get_max_y_list(t_x **l, t_game_info *info);
 char *draw_map(t_x **map, t_game_info *game_info);
 
 #endif

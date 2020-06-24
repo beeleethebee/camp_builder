@@ -9,10 +9,11 @@ SRC  = 	./src/campbuilder.c \
 		./src/functions/operators.c \
 		./src/functions/validators.c \
 		./src/functions/tokenize_input.c \
+		./src/functions/clear.c
 	
 OBJ = ${SRC:.c=.o}
 
-CFLAGS = -Wextra -Wall -std=c11
+CFLAGS = -Wextra -Wall -Werror -std=c11
 RM = rm -f
 
 

@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 t_building builds[] = {
     {"foundation", 'x', 120, 10, 10, 1},
     {"wall", 'w', 50, 0, 5, 1},
@@ -20,6 +19,29 @@ t_action actions[] = {
     {"\0", &basic_operation},
     {0, 0}
 };
+
+
+void draw_screen(t_x **my_camp, t_game_info *game_info) {
+    char *none_string = malloc(sizeof(char) * game_info->size_x + 2);
+    none_string[0] = '*';
+    for (int i = 1; i < game_info->size_x + 1; i++)
+        none_string[i] = '=';
+    none_string[game_info->size_x + 1] = '*';
+    printf("%s\n%s\n%s\n", none_string ,draw_map(my_camp, game_info), none_string);    
+}
+
+void init_draw_screen(t_x **my_camp, t_game_info *game_info) {
+    clear();
+    printf("Hey, here's your new camp, take a moment to watch it !\n\n");
+    draw_screen(my_camp, game_info);
+    getchar();
+    printf("Okay, for now it's quit empty, you can fill it with some constructions in the list:\n");
+    for (int i = 0; builds[i].name != 0; i++)
+        printf("\t- %s (%c)\n", builds[i].name, builds[i].draw);
+    printf("\nYou can find those constructions in README.md. Are you ready to start to fill your camp ? ");
+    getchar();
+    clear();
+}
 
 int read_instruction(char *input, t_building build, t_x **camp ,t_game_info *game_info) {
     char testing[33];
@@ -59,13 +81,15 @@ int main(int argc, char *argv[])  {
     t_x *my_camp[game_info.size_x];
 
     init(my_camp, game_info.size_x);
-    printf("Your camp is create successfull, with a size of %d.\n\n", game_info.size_x );
-    for (int timer = 1; timer < 100; timer++)  {
+    init_draw_screen(my_camp, &game_info);
+    for (int timer = 1; timer < 1000; timer++) {
+        draw_screen(my_camp, &game_info);
         char input[200];
-        printf("(%i/100)Enter a command : ", timer);
+        printf("\n(%i) Tell us your instruction(s) according to the guide : ", timer);
         fgets(input, 200, stdin);
         format_input(input);
+        printf("\n_____________\n\n");
         tokenize_input(input, &game_info, my_camp);
-        printf("%s", draw_map(my_camp, &game_info));
+        printf("\n");
     }
 }
